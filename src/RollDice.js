@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Die from "./Die";
+import Dice from "./Dice";
 import "./RollDice.css";
 
 class RollDice extends Component {
@@ -117,7 +117,7 @@ class RollDice extends Component {
     dice.splice(state.numDice, 100 - state.numDice);
     for (let i = 0; i < state.numDice; i++) {
       dice.push(
-        <Die
+        <Dice
           {...props}
           color={state.faceColor}
           key={i}

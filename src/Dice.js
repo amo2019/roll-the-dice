@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Die.css";
+import "./Dice.css";
 
 class Die extends Component {
   render() {

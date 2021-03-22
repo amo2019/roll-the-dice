@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import RollDice from "./RollDice";
 import "./App.css";
 
 function App() {
   return (
-    <div>
-      <h1>Testing...</h1>
+    <div className="App">
+      <div className="all-containers">
+        <RollDice />
+      </div>
     </div>
   );
 }

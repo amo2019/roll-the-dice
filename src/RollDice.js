@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import Dice from "./Dice";
 import "./RollDice.css";
+//import "./styles.css";
 
 class RollDice extends Component {
   static defaultProps = {
     faceColor: "#C9457D",
     numDice: 4,
+    currentPlayer: "player1",
+    players: [
+      { player1: { total: 0, roundNum: 1 } },
+      { player2: { total: 0, roundNum: 1 } },
+    ],
   };
   constructor(props) {
     super(props);
@@ -20,15 +26,19 @@ class RollDice extends Component {
       faceColor: "#C9457D",
       youWon: false,
       rolling: false,
+      currentPlayer: "player1",
+      player1: { total: 0, roundNum: 1 },
+      player2: { total: 0, roundNum: 1 },
     };
     this.dice = [];
     this.rollCount = 0;
     this.getRandomNumber = this.getRandomNumber.bind(this);
-
+    this.toggleClasses = this.toggleClasses.bind(this);
     this.rollDice = this.rollDice.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getRollResults = this.getRollResults.bind(this);
     this.handleNumDice = this.handleNumDice.bind(this);
+    this.setCurrentPlayer = this.setCurrentPlayer(this);
   }
 
   getRollResults(diceValues) {
@@ -79,7 +89,9 @@ class RollDice extends Component {
         value = e.target.max;
       }
     }
-
+    if (e.target.type === "checkbox") {
+      value = !this.state[e.target.name];
+    }
     this.setState({
       faceColor: value,
     });
@@ -101,6 +113,40 @@ class RollDice extends Component {
     });
 
     this.getRollResults(diceValues);
+  }
+
+  setCurrentPlayer() {
+    const currentPlayer = this.state.currentPlayer;
+    if (currentPlayer === "player2" && this.state.player2.roundNum <= 10) {
+      this.setState((st) => {
+        return {
+          player2: { roundNum: st.player2.roundNum + 1, total: st.totalValue },
+        };
+      });
+    } else if (
+      currentPlayer === "player1" &&
+      this.state.player1.roundNum <= 10
+    ) {
+      this.setState((st) => {
+        return {
+          player1: {
+            roundNum: st.player1.roundNum + 1,
+            total: st.totalValue,
+          },
+        };
+      });
+    } else {
+      this.setState((st) => {
+        return {
+          youWon: true,
+        };
+      });
+    }
+  }
+
+  toggleClasses(die) {
+    die.classList.toggle("odd-roll");
+    die.classList.toggle("even-roll");
   }
 
   getRandomNumber(min, max) {
@@ -127,10 +173,55 @@ class RollDice extends Component {
     }
     return (
       <>
+        <div className="container">
+          <fieldset style={{ padding: "5px" }}>
+            <label htmlFor="faceColor">Dice Color</label>
+            <input
+              type="color"
+              name="faceColor"
+              id="faceColor"
+              className="form-control"
+              value={this.state.faceColor}
+              onChange={this.handleChange}
+            />
+          </fieldset>
+
+          <fieldset style={{ padding: "5px" }}>
+            <label>Total Sum:</label>
+
+            <span style={{ fontWeight: "bold" }}>{this.state.totalValue}</span>
+          </fieldset>
+          <fieldset>
+            <label htmlFor="numDice">Dice Number</label>
+            <input
+              style={{ padding: "5px", margin: "4px", width: "5em" }}
+              type="number"
+              name="numDice"
+              id="numDice"
+              className="form-control"
+              value={state.numDice}
+              onChange={this.handleNumDice}
+              min="1"
+              max="6"
+            />
+          </fieldset>
+        </div>
         <div className="RollDice-container">{dice}</div>
 
+        {this.state.youWon && (
+          <h1>
+            <span>"YOU</span>
+            <span>WIN!"</span>
+          </h1>
+        )}
         <div className="RollDice">
-          <button>Roll The Dice 🎲</button>
+          <button
+            style={{ color: `${this.state.faceColor}` }}
+            onClick={this.rollDice}
+            disabled={this.state.rolling}
+          >
+            {this.state.rolling ? "Rolling 🎲 🎲 🎲" : "Roll The Dice 🎲"}
+          </button>
         </div>
       </>
     );

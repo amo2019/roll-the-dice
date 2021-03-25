@@ -1,32 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ThemeContext } from "./contexts/ThemeContext";
 import Dice from "./Dice";
 import "./RollDice.css";
 
 function RollDice() {
   const props = {
-    faceColor: "#C9457D",
+    faceColor: "#51B06E",
     numDice: 4,
     currentPlayer: "player1",
-    players: [
-      { player1: { total: 0, roundNum: 1 } },
-      { player2: { total: 0, roundNum: 1 } },
-    ],
   };
 
+  const { isDarkMode } = useContext(ThemeContext);
   let diceValues = [];
   for (let i = 0; i < props.numDice; i++) {
     diceValues[i] = 6;
   }
+
+  const [player1, setPlayer1] = useState({
+    numDice: 4,
+    faceColor: "#51B06E",
+    youWon: false,
+    total: 0,
+    roundNum: 0,
+    totalRounds: 0,
+  });
+
+  const [player2, setPlayer2] = useState({
+    numDice: 4,
+    faceColor: "#51B06E",
+    youWon: false,
+    total: 0,
+    roundNum: 0,
+    totalRounds: 0,
+    wait: false,
+  });
+
   const [dState, setdState] = useState({
     totalValue: props.numDice,
     diceValues,
-    numDice: 4,
-    faceColor: "#C9457D",
+    numDice: !isDarkMode ? player1.numDice : player2.numDice,
+    faceColor: !isDarkMode ? player1.faceColor : player2.faceColor,
     youWon: false,
     rolling: false,
-    currentPlayer: "player1",
-    player1: { total: 0, roundNum: 1 },
-    player2: { total: 0, roundNum: 1 },
+    currentPlayer: !isDarkMode ? "player1" : "player2",
+    winner: 0,
   });
 
   const getRollResults = (diceValues) => {
@@ -37,30 +54,100 @@ function RollDice() {
     function allEqual(arr) {
       return new Set(arr).size === 1;
     }
-    if (diceValues.length > 1 && allEqual(diceValues)) {
+    if ((player1.roundNum === 10) & (player2.roundNum === 10)) {
+      player1.totalRounds > player2.totalRounds
+        ? setPlayer1((st) => {
+            return {
+              ...st,
+              youWon: true,
+            };
+          })
+        : setPlayer2((st) => {
+            return {
+              ...st,
+              youWon: true,
+            };
+          });
+      setdState((st) => {
+        return {
+          ...st,
+          youWon: true,
+          winner: player1.totalRounds > player2.totalRounds ? 1 : 2,
+        };
+      });
+      return 0;
+    } else if (
+      (!isDarkMode && player1.roundNum > 9) & (player2.roundNum < 9) ||
+      (player1.roundNum < 9) & (isDarkMode && player2.roundNum > 9)
+    ) {
+      setdState({ ...dState, wait: true });
+      return 0;
+    } else if (diceValues.length > 1 && allEqual(diceValues)) {
       setTimeout(() => {
-        setdState({ ...dState, totalValue: total, diceValues, youWon: true });
+        setdState({
+          ...dState,
+          totalValue: total,
+          diceValues,
+          youWon: true,
+          winner: !isDarkMode ? 1 : 2,
+        });
       }, 1000);
       setTimeout(() => {
         setdState({ ...dState, youWon: false });
       }, 4000);
-
       return 0;
     }
 
     setTimeout(() => {
-      setdState({ ...dState, totalValue: total, diceValues });
+      setdState({
+        ...dState,
+        totalValue: total,
+        diceValues,
+      });
+      isDarkMode
+        ? setPlayer2((st) => {
+            return {
+              ...st,
+              total: total,
+              roundNum: player2.roundNum + 1,
+              totalRounds: player2.totalRounds + total,
+            };
+          })
+        : setPlayer1((st) => {
+            return {
+              ...st,
+              total: total,
+              roundNum: player1.roundNum + 1,
+              totalRounds: player1.totalRounds + total,
+            };
+          });
     }, 1000);
+    console.log("dState1:", player1, "dState2:", player2);
+    //setCurrentPlayer(total, diceValues);
   };
 
   const handleNumDice = (e) => {
     let value = e.target.value;
     let range = [1, 2, 3, 4, 5, 6, 7];
-    if (value in range)
+    if (value in range) {
       setdState({
         ...dState,
         numDice: value,
       });
+      isDarkMode
+        ? setPlayer2((st) => {
+            return {
+              ...st,
+              numDice: value,
+            };
+          })
+        : setPlayer1((st) => {
+            return {
+              ...st,
+              numDice: value,
+            };
+          });
+    }
   };
   const handleChange = (e) => {
     let value = e.target.value;
@@ -75,9 +162,18 @@ function RollDice() {
     if (e.target.type === "checkbox") {
       value = !dState[e.target.name];
     }
+    isDarkMode
+      ? setPlayer2({
+          ...player2,
+          faceColor: value,
+        })
+      : setPlayer1({
+          ...player1,
+          faceColor: value,
+        });
     setdState({
       ...dState,
-      faceColor: value,
+      faceColor: isDarkMode ? player2.faceColor : player1.faceColor,
     });
     console.log(value, dState.faceColor, e.target.value);
   };
@@ -97,6 +193,37 @@ function RollDice() {
     });
 
     getRollResults(diceValues);
+  };
+
+  const resetTheGame = () => {
+    setdState({
+      totalValue: 0,
+      diceValues: 0,
+      numDice: 4,
+      faceColor: "#51B06E",
+      youWon: false,
+      rolling: false,
+      currentPlayer: !isDarkMode ? "player1" : "player2",
+      winner: 0,
+    });
+    setPlayer1({
+      numDice: 4,
+      faceColor: "#51B06E",
+      youWon: false,
+      total: 0,
+      roundNum: 0,
+      totalRounds: 0,
+    });
+
+    setPlayer2({
+      numDice: 4,
+      faceColor: "#51B06E",
+      youWon: false,
+      total: 0,
+      roundNum: 0,
+      totalRounds: 0,
+      wait: false,
+    });
   };
 
   const toggleClasses = (die) => {
@@ -119,7 +246,8 @@ function RollDice() {
     dice.push(
       <Dice
         {...props}
-        color={dState.faceColor}
+        reset={resetTheGame}
+        color={isDarkMode ? player2.faceColor : player1.faceColor}
         key={i}
         //ref={(die) => (dice[i] = die)}
       />
@@ -135,15 +263,24 @@ function RollDice() {
             name="faceColor"
             id="faceColor"
             className="form-control"
-            value={dState.faceColor}
+            value={isDarkMode ? player2.faceColor : player1.faceColor}
             onChange={handleChange}
           />
         </fieldset>
 
         <fieldset style={{ padding: "5px" }}>
-          <label>Total Sum:</label>
-
-          <span style={{ fontWeight: "bold" }}>{dState.totalValue}</span>
+          <label>Total:</label>
+          <span style={{ fontWeight: "bold" }}>
+            {isDarkMode ? player2.total : player1.total}
+          </span>
+          <label>Round Num:</label>
+          <span style={{ fontWeight: "bold" }}>
+            {isDarkMode ? player2.roundNum : player1.roundNum}
+          </span>
+          <label>Comulative Total:</label>
+          <span style={{ fontWeight: "bold" }}>
+            {isDarkMode ? player2.totalRounds : player1.totalRounds}
+          </span>
         </fieldset>
         <fieldset>
           <label htmlFor="numDice">Dice Number</label>
@@ -164,17 +301,34 @@ function RollDice() {
 
       {dState.youWon && (
         <h1>
-          <span>"YOU</span>
+          <span>"{dState.winner === 1 ? "player1 " : "player2 "}</span>
           <span>WIN!"</span>
         </h1>
       )}
-      <div className="RollDice">
+      {dState.wait && (
+        <h2 glow>
+          Please wait for the other player till he finshs his rounds.
+        </h2>
+      )}
+      <div className="RollDice-container">
         <button
-          style={{ color: `${dState.faceColor}` }}
+          class="button"
+          style={{
+            color: `${isDarkMode ? player2.faceColor : player1.faceColor}`,
+          }}
           onClick={rollDice}
           disabled={dState.rolling}
         >
           {dState.rolling ? "Rolling 🎲 🎲 🎲" : "Roll The Dice 🎲"}
+        </button>
+
+        <button
+          class="button"
+          type="button"
+          onDoubleClick={resetTheGame}
+          data-hover="DOUBLE CLICK TO RESET"
+        >
+          <span>RESET</span>
         </button>
       </div>
     </>

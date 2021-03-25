@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
+
 .RollDice {
   display: flex;
   flex-flow: column nowrap;
-  min-height: 100vh;
 }
 .RollDice-container {
   flex-wrap: wrap;
@@ -11,30 +11,85 @@
   align-content: center;
   margin-top: 30px;
 }
-.RollDice button {
-  align-self: center;
-  width: 15em;
-  padding: 1.5em;
-  font-size: 1em;
-  font-weight: bold;
-  text-shadow: 0.5px 0.5px #534f4f;
-  border: 0px;
-  border-radius: 10px;
-  color: white;
-  background-color: black;
-  margin-top: 3em;
-  margin-bottom: 3em;
-}
 
-.RollDice button:hover {
-  background-color: rgb(30, 30, 32);
+button:hover {
+  background-color: rgb(44, 44, 51);
   opacity: 0.7;
   cursor: pointer;
 }
 
+.button {
+  position: relative;
+  width: 12em;
+  height: 3.2em;
+  margin: 1em;
+  padding: 0.68em;
+  overflow: hidden;
+  text-decoration: none;
+  font-size: 1.2em;
+  outline: none;
+  color: rgb(241, 232, 232);
+  font-family: "raleway", sans-serif;
+  text-shadow: 0.5px 0.5px #c9edf1;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  background-color: rgba(9, 14, 43, 0.658);
+}
+
+.button span {
+  transition: 0.6s;
+
+  transition-delay: 0.2s;
+}
+
+.button:before,
+.button:after {
+  content: "";
+  position: absolute;
+  top: 0.67em;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+
+  transition: 0.4s, opacity 0.6s;
+}
+
+/* :before */
+
+.button:before {
+  content: attr(data-hover);
+
+  transform: translate(-150%, 0);
+}
+
+/* :after */
+
+/* Span on :hover and :active */
+
+.button:hover span {
+  opacity: 0;
+
+  transform: scale(0.3);
+}
+
+/*  
+    We show :before pseudo-element on :hover 
+    and :after pseudo-element on :active 
+*/
+
+.button:hover:before,
+.button:active:after {
+  opacity: 1;
+
+  transform: translate(0, 0);
+
+  transition-delay: 0.4s;
+}
+
 h1 {
   margin: 0;
-  font-size: 12em;
+  font-size: 6em;
   padding: 0;
   position: relative;
   color: rgb(211, 214, 49);
@@ -45,15 +100,16 @@ h1 {
     -0.03em 0 0 rgba(0, 0, 0, 1);
 }
 h1 span {
+  margin: 0 auto;
   transform: scale(0.9);
   display: inline-block;
 }
 h1 span:first-child {
-  animation: bop 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite
+  animation: bop 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite
     alternate;
 }
 h1 span:last-child {
-  animation: bopB 2.5s 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards
+  animation: bopB 2.5s 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards
     infinite alternate;
 }
 
@@ -75,4 +131,17 @@ h1 span:last-child {
   100% {
     transform: scale(1) rotateZ(-3deg);
   }
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 20;
+  font-style: italic;
+  color: rgb(25, 26, 104);
+  margin: 20px 30px 0px;
+  background-color: rgb(216, 216, 228);
+  padding: 0.5rem 0rem 0.5rem;
+  border: 0.4rem solid rgb(11, 14, 68);
+  border-radius: 1rem;
+  text-transform: uppercase;
 }

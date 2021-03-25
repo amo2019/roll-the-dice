@@ -1,8 +1,8 @@
 import React from "react";
 import "./Dice.css";
 
-export default function Dice(props) {
-  console.log(props, props.color);
+export default function Die(props) {
+  console.log(props.reset);
   return (
     <div className="dice">
       <ol className="die-list even-roll" data-roll="1" id="die-1">

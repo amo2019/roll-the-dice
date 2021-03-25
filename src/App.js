@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import RollDice from "./RollDice";
 import "./App.css";
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <div className="all-containers">
@@ -11,5 +11,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

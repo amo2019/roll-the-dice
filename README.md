@@ -6,7 +6,7 @@ I have built this app locally from scratch, for practicing.
 
 ### `Project discription`
 
-** This is reactjs project, it is a Dice game app, built using react, material-ui and Context API to handle and toggle two players and two themes concurrently. **
+** This is reactjs project, it is a Dice game app, built using react, material-ui and Context API to handle and toggle two players state and two themes concurrently. **
 
 # Tools
 

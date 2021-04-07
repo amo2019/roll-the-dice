@@ -17,10 +17,10 @@ I have built this app locally from scratch, for practicing.
 
 # Start App
 
-Clone repo, install, cd into folder and run:
-
+Clone repo, install:
 ```git
 npm install or yarn
+cd into folder and run:
 npm start or yarn start
 ```
 

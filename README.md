@@ -1,7 +1,7 @@
 # roll-the-dice
 
 react app game
-<--! ![alt text](https://amo2019.github.io/media-sample-files/dice-react-app/dice.png?raw=true)<br/> -->
+<!--- ![alt text](https://amo2019.github.io/media-sample-files/dice-react-app/dice.png?raw=true)<br/> --->
 ![alt text](https://amo2019.github.io/media-sample-files/dice-react-app/dice4.png?raw=true)<br/>
 I have built this app locally from scratch, for practicing.
 

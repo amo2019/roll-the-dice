@@ -1,7 +1,7 @@
 import React from "react";
 import "./Dice.css";
 
-export default function Die(props) {
+export default function Dice(props) {
   console.log(props.reset);
   return (
     <div className="dice">

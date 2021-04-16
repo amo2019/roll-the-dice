@@ -7,15 +7,15 @@ import "./App.css";
 
 export default function App() {
   return (
+    <ThemeProvider>
+       <PageContent>
     <div className="App">
-      <div className="all-containers">
-        <ThemeProvider>
-          <PageContent>
+        
             <Navbar />
             <RollDice />
-          </PageContent>
-        </ThemeProvider>
-      </div>
-    </div>
+       
+     </div>
+     </PageContent>
+    </ThemeProvider>
   );
 }

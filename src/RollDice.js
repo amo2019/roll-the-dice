@@ -3,7 +3,7 @@ import { ThemeContext } from "./contexts/ThemeContext";
 import Dice from "./Dice";
 import "./RollDice.css";
 
-function RollDice() {
+export default function RollDice() {
   const props = {
     faceColor: "#51B06E",
     numDice: 4,
@@ -178,13 +178,14 @@ function RollDice() {
     console.log(value, dState.faceColor, e.target.value);
   };
 
-  const rollDice = () => {
+  const rollDiceFunc = () => { 
     let diceValues = [];
     setdState({ ...dState, rolling: true });
     setTimeout(() => {
       setdState({ ...dState, rolling: false });
     }, 1000);
     const dice = [...document.querySelectorAll(".die-list")];
+    
     dice.forEach((die) => {
       toggleClasses(die);
       die.dataset.roll = getRandomNumber(1, 6);
@@ -301,8 +302,8 @@ function RollDice() {
 
       {dState.youWon && (
         <h1>
-          <span>"{dState.winner === 1 ? "player1 " : "player2 "}</span>
-          <span>WIN!"</span>
+          <span>"{dState.winner === 1 ? "PLAYER1 " : "PLAYER2 "}</span>
+          <span>WINS!"</span>
         </h1>
       )}
       {dState.wait && (
@@ -316,7 +317,7 @@ function RollDice() {
           style={{
             color: `${isDarkMode ? player2.faceColor : player1.faceColor}`,
           }}
-          onClick={rollDice}
+          onClick={rollDiceFunc}
           disabled={dState.rolling}
         >
           {dState.rolling ? "Rolling 🎲 🎲 🎲" : "Roll The Dice 🎲"}
@@ -334,5 +335,3 @@ function RollDice() {
     </>
   );
 }
-
-export default RollDice;

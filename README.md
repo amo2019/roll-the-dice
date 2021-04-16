@@ -1,11 +1,14 @@
 # roll-the-dice
 
 react app game
-<!-- ![alt text](https://amo2019.github.io/media-sample-files/dice-react-app/dice.png?raw=true)<br/> -->
+<!--- ![alt text](https://amo2019.github.io/media-sample-files/dice-react-app/dice.png?raw=true)<br/> --->
+
+![alt text](https://amo2019.github.io/media-sample-files/dice-react-app/dice6.png?raw=true&s=100)<br/>
+I have built this app locally from scratch, for practicing.
 
 ### `Project discription`
 
-** This is reactjs project, it is a Dice game app, built using react, material-ui and Context API to handle and toggle two players and two themes concurrently. **
+** This is reactjs project, it is a Dice game app, built using react, material-ui and Context API to handle and toggle two players state and two themes concurrently. **
 
 # Tools
 
@@ -15,10 +18,10 @@ react app game
 
 # Start App
 
-Clone repo, install, cd into folder and run:
-
+Clone repo, install:
 ```git
 npm install or yarn
+cd into folder and run:
 npm start or yarn start
 ```
 

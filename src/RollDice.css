@@ -154,3 +154,10 @@ h2 {
   border-radius: 2rem;
   text-transform: uppercase;
 }
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 4rem;
+  }
+}
+

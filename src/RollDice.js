@@ -6,7 +6,7 @@ import "./RollDice.css";
 export default function RollDice() {
   const props = {
     faceColor: "#51B06E",
-    numDice: 4,
+    numDice: 2,
     currentPlayer: "player1",
   };
 
@@ -17,7 +17,7 @@ export default function RollDice() {
   }
 
   const [player1, setPlayer1] = useState({
-    numDice: 4,
+    numDice: 2,
     faceColor: "#51B06E",
     youWon: false,
     total: 0,
@@ -26,7 +26,7 @@ export default function RollDice() {
   });
 
   const [player2, setPlayer2] = useState({
-    numDice: 4,
+    numDice: 2,
     faceColor: "#51B06E",
     youWon: false,
     total: 0,
@@ -200,7 +200,7 @@ export default function RollDice() {
     setdState({
       totalValue: 0,
       diceValues: 0,
-      numDice: 4,
+      numDice: 2,
       faceColor: "#51B06E",
       youWon: false,
       rolling: false,
@@ -208,7 +208,7 @@ export default function RollDice() {
       winner: 0,
     });
     setPlayer1({
-      numDice: 4,
+      numDice: 2,
       faceColor: "#51B06E",
       youWon: false,
       total: 0,
@@ -217,7 +217,7 @@ export default function RollDice() {
     });
 
     setPlayer2({
-      numDice: 4,
+      numDice: 2,
       faceColor: "#51B06E",
       youWon: false,
       total: 0,
@@ -293,7 +293,7 @@ export default function RollDice() {
             className="form-control"
             value={dState.numDice}
             onChange={handleNumDice}
-            min="1"
+            min="2"
             max="6"
           />
         </fieldset>

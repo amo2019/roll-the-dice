@@ -1,5 +1,5 @@
 import React from "react";
-import RollDice from "./RollDice";
+import RollDice from "./rollDice/RollDice";
 import Navbar from "./Navbar";
 import PageContent from "./PageContent";
 import { ThemeProvider } from "./contexts/ThemeContext";

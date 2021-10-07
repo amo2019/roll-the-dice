@@ -124,7 +124,7 @@ export default function RollDice() {
     setdState({
       totalValue: 0,
       diceValues: 0,
-      numDice: 2,
+      numDice: dState.numDice,
       faceColor: "#51B06E",
       youWon: false,
       rolling: false,
@@ -132,7 +132,7 @@ export default function RollDice() {
       winner: 0,
     });
     setPlayer1({
-      numDice: 2,
+      numDice: dState.numDice,
       faceColor: "#51B06E",
       youWon: false,
       total: 0,
@@ -141,13 +141,20 @@ export default function RollDice() {
     });
 
     setPlayer2({
-      numDice: 2,
+      numDice: dState.numDice,
       faceColor: "#51B06E",
       youWon: false,
       total: 0,
       roundNum: 0,
       totalRounds: 0,
       wait: false,
+    });
+
+    const dice = [...document.querySelectorAll(".die-list")];
+    //Array.apply(null, Array(dState.numDice)).map(function (x, i) { return 1; })
+    dice.forEach((die) => {
+      toggleClasses(die);
+      die.dataset.roll = 1;
     });
   };
 

@@ -2,7 +2,7 @@ import React from "react";
 import "./Dice.css";
 
 export default function Dice(props) {
-  console.log(props.reset);
+  console.log("reset:",props);
   return (
     <div className="dice">
       <ol className="die-list even-roll" data-roll="1" id="die-1">
@@ -67,3 +67,5 @@ export default function Dice(props) {
     </div>
   );
 }
+
+// {props.reset ? "1" : "2"}  new feature

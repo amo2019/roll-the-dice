@@ -22,9 +22,9 @@
   grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   grid-template-rows: auto;
-  justify-items: center;
-  padding: 2rem;
+  padding: 1rem;
   perspective: 0px;
+  border-radius: 20px;
 }
 .die-list {
   display: grid;
@@ -34,6 +34,7 @@
   list-style-type: none;
   transform-style: preserve-3d;
   width: 6rem;
+  margin-bottom: 1rem;
 }
 .even-roll {
   transition: transform 1.5s ease-out;
@@ -189,12 +190,25 @@
 
 @media (min-width: 900px) {
   .dice {
-    perspective: 1300px;
+    padding: 1rem;
   }
 }
 
-@media (max-width: 500px) {
+@media (min-width: 758px) {
+.dice {
+    padding: 5rem;
+}
+}
+
+@media (max-width: 425px) {
   .dice {
-    perspective: 0px;
+    border-radius: 20%;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .die-item {
+    padding: 0.2rem;
   }
 }

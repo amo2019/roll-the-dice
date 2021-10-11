@@ -204,8 +204,8 @@
   .dice {
     border-radius: 20%;
     padding: 1rem;
-    perspective: none;
-    -webkit-perspective: none;
+    perspective: 2000rem;
+    -webkit-perspective: 2000rem;
   }
 }
 

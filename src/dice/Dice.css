@@ -204,11 +204,13 @@
   .dice {
     border-radius: 20%;
     padding: 1rem;
+    perspective: none;
+    -webkit-perspective: none;
   }
 }
 
 @media (max-width: 425px) {
   .die-item {
-    padding: 0.2rem;
+    padding: 0.4rem;
   }
 }

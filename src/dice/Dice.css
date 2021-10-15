@@ -23,7 +23,7 @@
   grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   grid-template-rows: auto;
   padding: 1rem;
-  perspective: 0px;
+  perspective: 120000rem;
   border-radius: 20px;
 }
 .die-list {
@@ -191,12 +191,14 @@
 @media (min-width: 900px) {
   .dice {
     padding: 1rem;
+    perspective: 120000rem;
   }
 }
 
 @media (min-width: 758px) {
 .dice {
     padding: 5rem;
+    perspective: 120000rem;
 }
 }
 
@@ -204,8 +206,7 @@
   .dice {
     border-radius: 20%;
     padding: 1rem;
-    perspective: 2000rem;
-    -webkit-perspective: 2000rem;
+    perspective: 120000rem;
   }
 }
 
